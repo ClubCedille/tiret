@@ -26,7 +26,7 @@ class Repository:
 
 	def __repr__(self):
 		return self.__class__.__name__\
-			+ f"('{self._name}', '{self._description}', "\
+			+ f"(\"{self._name}\", \"{self._description}\", "\
 			+ f"{self._stars}, {self._languages})"
 
 	@property
