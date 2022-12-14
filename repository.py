@@ -1,3 +1,9 @@
+from common_keys import *
+
+
+_KEY_STARS = "stars"
+
+
 class Repository:
 	"""
 	This class gathers data about one GitHub repository.
@@ -31,16 +37,43 @@ class Repository:
 
 	@property
 	def description(self):
+		"""
+		str: the repository','s description
+		"""
 		return self._description
 
 	@property
 	def languages(self):
+		"""
+		tuple: the name (str) of the computer languages used in the repository
+		"""
 		return self._languages
 
 	@property
 	def name(self):
+		"""
+		str: the repository's name
+		"""
 		return self._name
 
 	@property
 	def stars(self):
+		"""
+		int: the repository's number of stars
+		"""
 		return self.stars
+
+	def as_dict(self):
+		"""
+		Creates a dictionary that maps attribute names (strings) to this
+		object's attributes.
+
+		Returns:
+			dict: It maps the attributes' name to their value.
+		"""
+		return {
+			KEY_NAME: self._name,
+			KEY_DESC: self._description,
+			_KEY_STARS: self._stars,
+			KEY_LANG: self._languages
+		}
