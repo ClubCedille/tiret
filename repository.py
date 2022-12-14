@@ -38,7 +38,7 @@ class Repository:
 	@property
 	def description(self):
 		"""
-		str: the repository','s description
+		str: the repository's description
 		"""
 		return self._description
 
