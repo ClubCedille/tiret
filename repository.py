@@ -3,10 +3,10 @@ from repo_keys import *
 
 class Repository:
 	"""
-	This class gathers data about one GitHub repository.
+	This class gathers data about a GitHub repository.
 	"""
 
-	def __init__(self, name, description, stars, contributors, languages):
+	def __init__(self, name, description, stars, contributors, commits, languages):
 		"""
 		The constructor requires all the data that the class is meant to
 		contain.
@@ -17,6 +17,7 @@ class Repository:
 			stars (int): the repository's number of stars
 			contributors: a list, set or tuple containing the username (str) of
 				the repository's contributors
+			commits (int): the repository's number of commits
 			languages: a list, set or tuple of the computer languages (str)
 				used in the repository
 		"""
@@ -24,12 +25,17 @@ class Repository:
 		self._description = description
 		self._stars = stars
 		self._contributors = _ensure_is_tuple(contributors)
+		self._commits = commits
 		self._languages = _ensure_is_tuple(languages)
 
 	def __repr__(self):
 		return self.__class__.__name__\
-			+ f"(\"{self._name}\", \"{self._description}\", "\
-			+ f"{self._stars}, {self._contributors}, {self._languages})"
+			+ f"(\"{self._name}\", \"{self._description}\", {self._stars}, "\
+			+ f"{self._contributors}, {self._commits}, {self._languages})"
+
+	@property
+	def commits(self):
+		return self._commits
 
 	@property
 	def contributors(self):
@@ -79,6 +85,7 @@ class Repository:
 			KEY_DESC: self._description,
 			KEY_STARS: self._stars,
 			KEY_CONTRIBUTORS: self._contributors,
+			KEY_COMMITS: self._commits,
 			KEY_LANG: self._languages
 		}
 

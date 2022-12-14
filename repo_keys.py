@@ -1,3 +1,4 @@
+KEY_COMMITS = "commits"
 KEY_CONTRIBUTORS = "contributors"
 KEY_DESC =  "description"
 KEY_LANG = "languages"
