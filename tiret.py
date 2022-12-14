@@ -4,13 +4,11 @@ import requests
 # Temporaire
 from sys import argv
 
-from common_keys import\
-	KEY_DESC,\
-	KEY_LANG,\
-	KEY_NAME
+from common_keys import *
 from repository import Repository
 
 
+_KEY_LOGIN = "login"
 _KEY_STARGAZERS = "stargazers_count"
 
 _PATH_REPOS = "https://api.github.com/repos/"
@@ -26,8 +24,9 @@ def fetch_repo_info(owner, repo, username, token):
 	name = repo_data.get(KEY_NAME)
 	description = repo_data.get(KEY_DESC)
 	stars = repo_data.get(_KEY_STARGAZERS)
+	contributors = _fetch_repo_contributors(repo_url, auth_couple)
 	languages = _fetch_repo_languages(repo_url, auth_couple)
-	repo = Repository(name, description, stars, languages)
+	repo = Repository(name, description, stars, contributors, languages)
 
 	return repo
 
@@ -38,6 +37,14 @@ def _fetch_repo_languages(repo_url, auth_couple):
 	lang_data = json.loads(lang_response.content)
 	languages = tuple(lang_data.keys())
 	return languages
+
+
+def _fetch_repo_contributors(repo_url, auth_couple):
+	contributor_url = repo_url + _SLASH + KEY_CONTRIBUTORS
+	contributor_response = requests.get(contributor_url, auth=auth_couple)
+	contributor_data = json.loads(contributor_response.content)
+	contributors = *(c[_KEY_LOGIN] for c in contributor_data),
+	return contributors
 
 
 repo = fetch_repo_info("ClubCedille", "trema", argv[1], argv[2])

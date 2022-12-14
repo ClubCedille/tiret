@@ -9,7 +9,7 @@ class Repository:
 	This class gathers data about one GitHub repository.
 	"""
 
-	def __init__(self, name, description, stars, languages):
+	def __init__(self, name, description, stars, contributors, languages):
 		"""
 		The constructor requires all the data that the class is meant to
 		contain.
@@ -18,22 +18,28 @@ class Repository:
 			name (str): the repository's name
 			description (str): the repository's description
 			stars (int): the repository's number of stars
+			contributors: a list, set or tuple containing the username (str) of
+				the repository's contributors
 			languages: a list, set or tuple of the computer languages (str)
 				used in the repository
 		"""
 		self._name = name
 		self._description = description
 		self._stars = stars
-
-		if isinstance(languages, tuple):
-			self._languages = languages
-		else:
-			self._languages = tuple(languages)
+		self._contributors = _ensure_is_tuple(contributors)
+		self._languages = _ensure_is_tuple(languages)
 
 	def __repr__(self):
 		return self.__class__.__name__\
 			+ f"(\"{self._name}\", \"{self._description}\", "\
-			+ f"{self._stars}, {self._languages})"
+			+ f"{self._stars}, {self._contributors}, {self._languages})"
+
+	@property
+	def contributors(self):
+		"""
+		tuple: the username (str) of this repository's contributors
+		"""
+		return self._contributors
 
 	@property
 	def description(self):
@@ -61,7 +67,7 @@ class Repository:
 		"""
 		int: the repository's number of stars
 		"""
-		return self.stars
+		return self._stars
 
 	def as_dict(self):
 		"""
@@ -75,5 +81,14 @@ class Repository:
 			KEY_NAME: self._name,
 			KEY_DESC: self._description,
 			_KEY_STARS: self._stars,
+			KEY_CONTRIBUTORS: self._contributors,
 			KEY_LANG: self._languages
 		}
+
+
+def _ensure_is_tuple(obj):
+	if isinstance(obj, tuple):
+		return obj
+
+	else:
+		return obj
