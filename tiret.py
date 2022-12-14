@@ -48,7 +48,9 @@ def _fetch_repo_contributors(repo_url, auth_couple):
 
 
 repo = fetch_repo_info("ClubCedille", "trema", argv[1], argv[2])
+
+print("Representation")
+print(repo)
+
+print("\nDictionary")
 print(repo.as_dict())
-repo2 = eval(repr(repo))
-print(repo2.as_dict())
-print(repo.as_dict() == repo2.as_dict())
