@@ -4,7 +4,7 @@ import requests
 # Temporaire
 from sys import argv
 
-from common_keys import *
+from repo_keys import *
 from repository import Repository
 
 

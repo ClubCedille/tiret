@@ -1,7 +1,4 @@
-from common_keys import *
-
-
-_KEY_STARS = "stars"
+from repo_keys import *
 
 
 class Repository:
@@ -80,7 +77,7 @@ class Repository:
 		return {
 			KEY_NAME: self._name,
 			KEY_DESC: self._description,
-			_KEY_STARS: self._stars,
+			KEY_STARS: self._stars,
 			KEY_CONTRIBUTORS: self._contributors,
 			KEY_LANG: self._languages
 		}
