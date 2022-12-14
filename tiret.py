@@ -1,9 +1,6 @@
 import json
 import requests
 
-# Temporaire
-from sys import argv
-
 from repo_keys import *
 from repository import Repository
 
@@ -67,12 +64,3 @@ def _fetch_repo_num_commits(repo_url, auth_couple):
 		page_num += 1
 
 	return num_commits
-
-
-repo = fetch_repo_info("ClubCedille", "trema", argv[1], argv[2])
-
-print("Representation")
-print(repo)
-
-print("\nDictionary")
-print(repo.as_dict())
