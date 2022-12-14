@@ -34,20 +34,20 @@ def fetch_repo_info(owner, repo, username, token):
 	return repo
 
 
-def _fetch_repo_languages(repo_url, auth_couple):
-	repo_lang_url = repo_url + _SLASH + KEY_LANG
-	lang_response = requests.get(repo_lang_url, auth=auth_couple)
-	lang_data = json.loads(lang_response.content)
-	languages = tuple(lang_data.keys())
-	return languages
-
-
 def _fetch_repo_contributors(repo_url, auth_couple):
 	contributor_url = repo_url + _SLASH + KEY_CONTRIBUTORS
 	contributor_response = requests.get(contributor_url, auth=auth_couple)
 	contributor_data = json.loads(contributor_response.content)
 	contributors = *(c[_KEY_LOGIN] for c in contributor_data),
 	return contributors
+
+
+def _fetch_repo_languages(repo_url, auth_couple):
+	repo_lang_url = repo_url + _SLASH + KEY_LANG
+	lang_response = requests.get(repo_lang_url, auth=auth_couple)
+	lang_data = json.loads(lang_response.content)
+	languages = tuple(lang_data.keys())
+	return languages
 
 
 def _fetch_repo_num_commits(repo_url, auth_couple):
