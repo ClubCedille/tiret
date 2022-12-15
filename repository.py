@@ -35,6 +35,9 @@ class Repository:
 
 	@property
 	def commits(self):
+		"""
+		int: the repository's number of commits
+		"""
 		return self._commits
 
 	@property
