@@ -20,13 +20,16 @@ class Repository:
 			commits (int): the repository's number of commits
 			languages: a list, set or tuple of the computer languages (str)
 				used in the repository
+
+		Raises:
+			TypeError: if argument contributors or languages is of a wrong type
 		"""
 		self._name = name
 		self._description = description
 		self._stars = stars
-		self._contributors = _ensure_is_tuple(contributors)
+		self._contributors = _ensure_is_tuple("contributors", contributors)
 		self._commits = commits
-		self._languages = _ensure_is_tuple(languages)
+		self._languages = _ensure_is_tuple("languages", languages)
 
 	def __repr__(self):
 		return self.__class__.__name__\
@@ -93,9 +96,13 @@ class Repository:
 		}
 
 
-def _ensure_is_tuple(obj):
+def _ensure_is_tuple(arg_name, obj):
 	if isinstance(obj, tuple):
 		return obj
 
-	else:
+	elif isinstance(obj, (list, set)):
 		return tuple(obj)
+
+	else:
+		raise TypeError(f"Repository: argument {arg_name} "\
+			+ "must be a list, a set or a tuple.")
