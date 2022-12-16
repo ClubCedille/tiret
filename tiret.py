@@ -33,50 +33,50 @@ def fetch_repo_info(owner, repo, username, token):
 		RuntimeError: if a request to the GitHub API fails. Status code 401
 			can be due to an incorrect username or PAT
 	"""
-	auth_couple = (username, token)
+	authentication = (username, token)
 	repo_url = _PATH_REPOS + owner + _SLASH + repo
-	repo_response = requests.get(repo_url, auth=auth_couple)
+	repo_response = requests.get(repo_url, auth=authentication)
 	_raise_request_exception(repo_response.status_code)
 
 	repo_data = json.loads(repo_response.content)
 	name = repo_data.get(KEY_NAME)
 	description = repo_data.get(KEY_DESC)
 	stars = repo_data.get(_KEY_STARGAZERS)
-	contributors = _fetch_repo_contributors(repo_url, auth_couple)
-	commits = _fetch_repo_num_commits(repo_url, auth_couple)
-	languages = _fetch_repo_languages(repo_url, auth_couple)
+	contributors = _fetch_repo_contributors(repo_url, authentication)
+	commits = _fetch_repo_num_commits(repo_url, authentication)
+	languages = _fetch_repo_languages(repo_url, authentication)
 	repo = Repository(
 		name, description, stars, contributors, commits, languages)
 
 	return repo
 
 
-def _fetch_repo_contributors(repo_url, auth_couple):
+def _fetch_repo_contributors(repo_url, authentication):
 	contributor_url = repo_url + _SLASH + KEY_CONTRIBUTORS
-	contributor_response = requests.get(contributor_url, auth=auth_couple)
+	contributor_response = requests.get(contributor_url, auth=authentication)
 	_raise_request_exception(contributor_response.status_code)
 	contributor_data = json.loads(contributor_response.content)
 	contributors = *(c[_KEY_LOGIN] for c in contributor_data),
 	return contributors
 
 
-def _fetch_repo_languages(repo_url, auth_couple):
+def _fetch_repo_languages(repo_url, authentication):
 	repo_lang_url = repo_url + _SLASH + KEY_LANG
-	lang_response = requests.get(repo_lang_url, auth=auth_couple)
+	lang_response = requests.get(repo_lang_url, auth=authentication)
 	_raise_request_exception(lang_response.status_code)
 	lang_data = json.loads(lang_response.content)
 	languages = tuple(lang_data.keys())
 	return languages
 
 
-def _fetch_repo_num_commits(repo_url, auth_couple):
+def _fetch_repo_num_commits(repo_url, authentication):
 	repo_commit_url = repo_url + _SLASH + KEY_COMMITS + _PARAM_PAGE
 	page_num = 1
 	num_commits = 0
 
 	while True:
 		commit_response = requests.get(
-			repo_commit_url+str(page_num), auth=auth_couple)
+			repo_commit_url+str(page_num), auth=authentication)
 		_raise_request_exception(commit_response.status_code)
 		commit_data = json.loads(commit_response.content)
 
