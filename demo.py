@@ -17,13 +17,11 @@ parser.add_argument("-o", "--owner",
 	help="The username of the repository's owner")
 parser.add_argument("-r", "--repository",
 	help="The repository's name")
-parser.add_argument("-u", "--username",
-	help="Any GitHub username")
 parser.add_argument("-t", "--token",
 	help="A PAT owned by user -u")
 args = parser.parse_args()
 
-repo = fetch_repo_info(args.owner, args.repository, args.username, args.token)
+repo = fetch_repo_info(args.owner, args.repository, args.token)
 
 print("Representation")
 print(repo)
