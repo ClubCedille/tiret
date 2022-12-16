@@ -31,7 +31,7 @@ def fetch_repo_info(owner, repo, username, token):
 
 	Raises:
 		RuntimeError: if a request to the GitHub API fails. Status code 401
-			can be due to an incorrect username or PAT
+			can be due to an incorrect username or PAT.
 	"""
 	authentication = (username, token)
 	repo_url = _PATH_REPOS + owner + _SLASH + repo
