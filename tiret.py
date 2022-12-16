@@ -14,6 +14,21 @@ _SLASH = "/"
 
 
 def fetch_repo_info(owner, repo, username, token):
+	"""
+	This function obtains information about a GitHub repository from the GitHub
+	API. It requires a GitHub username and a personal access token (PAT) to
+	authenticate the requests.
+
+	Args:
+		owner (str): the name of the repository's owner
+		repo (str): the repository's name
+		username (str): the name of any GitHub user
+		token (str): the user's PAT
+
+	Returns:
+		Repository: an object containing information about the specified
+			repository
+	"""
 	auth_couple = (username, token)
 	repo_url = _PATH_REPOS + owner + _SLASH + repo
 	repo_response = requests.get(repo_url, auth=auth_couple)
