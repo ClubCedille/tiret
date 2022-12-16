@@ -1,4 +1,4 @@
-from repo_keys import *
+from .repo_keys import *
 
 
 class Repository:

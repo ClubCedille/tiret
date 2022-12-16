@@ -1,8 +1,8 @@
 import json
 import requests
 
-from repo_keys import *
-from repository import Repository
+from .repo_keys import *
+from .repository import Repository
 
 
 _KEY_LOGIN = "login"
