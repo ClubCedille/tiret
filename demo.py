@@ -7,7 +7,7 @@ access tokens (PATs).
 
 
 from argparse import ArgumentParser
-from sys import argv
+from sys import exit
 
 from tiret import fetch_repo_info
 
@@ -23,7 +23,12 @@ parser.add_argument("-t", "--token",
 	help="A PAT owned by user -u")
 args = parser.parse_args()
 
-repo = fetch_repo_info(args.owner, args.repository, args.username, args.token)
+try:
+	repo = fetch_repo_info(
+		args.owner, args.repository, args.username, args.token)
+except RuntimeError as rte:
+	print(rte)
+	exit()
 
 print("Representation")
 print(repo)
