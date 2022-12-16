@@ -98,4 +98,4 @@ def _ensure_is_tuple(obj):
 		return obj
 
 	else:
-		return obj
+		return tuple(obj)
