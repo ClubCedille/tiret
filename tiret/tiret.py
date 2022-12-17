@@ -22,7 +22,7 @@ def fetch_repo_info(owner, repo, username, token):
 	Args:
 		owner (str): the name of the repository's owner
 		repo (str): the repository's name
-		username (str): the name of any GitHub user
+		username (str): the name of a GitHub user
 		token (str): the user's PAT
 
 	Returns:

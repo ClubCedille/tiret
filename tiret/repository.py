@@ -18,8 +18,8 @@ class Repository:
 			contributors: a list, set or tuple containing the username (str) of
 				the repository's contributors
 			commits (int): the repository's number of commits
-			languages: a list, set or tuple of the computer languages (str)
-				used in the repository
+			languages: a list, set or tuple containing the name (str) of the
+				computer languages used in the repository
 
 		Raises:
 			TypeError: if argument contributors or languages is of a wrong type
@@ -46,7 +46,7 @@ class Repository:
 	@property
 	def contributors(self):
 		"""
-		tuple: the username (str) of this repository's contributors
+		tuple: the username (str) of the repository's contributors
 		"""
 		return self._contributors
 
@@ -80,8 +80,8 @@ class Repository:
 
 	def as_dict(self):
 		"""
-		Creates a dictionary that maps attribute names (strings) to this
-		object's attributes.
+		Creates a dictionary that maps attribute names (strings) to the
+		repository's attributes.
 
 		Returns:
 			dict: It maps the attributes' name to their value.
