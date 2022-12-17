@@ -18,7 +18,7 @@ parser.add_argument("-o", "--owner",
 parser.add_argument("-r", "--repository",
 	help="The repository's name")
 parser.add_argument("-u", "--username",
-	help="Any GitHub username")
+	help="A GitHub username")
 parser.add_argument("-t", "--token",
 	help="A PAT owned by user -u")
 args = parser.parse_args()
