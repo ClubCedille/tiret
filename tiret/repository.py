@@ -3,7 +3,7 @@ from .repo_keys import *
 
 class Repository:
 	"""
-	This class gathers data about a GitHub repository.
+	This class contains data about a GitHub repository.
 	"""
 
 	def __init__(self, name, description, stars, contributors, commits, languages):
