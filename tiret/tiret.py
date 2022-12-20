@@ -131,6 +131,7 @@ def write_repo_info(owner, repo, username, token, o_file):
 	repository = fetch_repo_info(owner, repo, username, token)
 	repo_dict = repository.as_dict()
 
+	# Unwanted text added if tuples are recorded
 	for key, value in repo_dict.items():
 		if isinstance(value, tuple):
 			repo_dict[key] = list(value)
