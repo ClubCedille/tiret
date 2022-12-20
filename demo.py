@@ -1,8 +1,7 @@
 """
 This demo shows how to use function fetch_repo_info to obtain information about
-a GitHub repository. The user must provide the username of the repository's
-owner, the repository's name, their own username and one of their personal
-access tokens (PATs).
+a GitHub repository. The user must provide their username and one of their
+personal access tokens (PATs) to authenticate the requests.
 """
 
 
