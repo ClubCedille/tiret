@@ -1,9 +1,14 @@
 import json
+from pathlib import Path
 import requests
+from yaml import dump
 
 from .repo_keys import *
 from .repository import Repository
 
+
+_ENCODING_UTF8 = "utf-8"
+_MODE_W = "w"
 
 _KEY_LOGIN = "login"
 _KEY_STARGAZERS = "stargazers_count"
@@ -11,6 +16,14 @@ _KEY_STARGAZERS = "stargazers_count"
 _PARAM_PAGE = "?page="
 _PATH_REPOS = "https://api.github.com/repos/"
 _SLASH = "/"
+
+
+def _ensure_is_path(obj):
+	if isinstance(obj, Path):
+		return obj
+
+	else:
+		return Path(obj)
 
 
 def fetch_repo_info(owner, repo, username, token):
@@ -93,3 +106,12 @@ def _raise_request_exception(status_code):
 	if status_code != 200:
 		raise RuntimeError(
 			f"Request to the GitHub API fialed. Status: {status_code}.")
+
+
+def write_repo_info(owner, repo, username, token, o_file):
+	o_file = _ensure_is_path(o_file)
+	repository = fetch_repo_info(owner, repo, username, token)
+	repo_dict = repository.as_dict()
+
+	with o_file.open(encoding=_ENCODING_UTF8, mode=_MODE_W) as o_stream:
+		dump(repo_dict, o_stream)
