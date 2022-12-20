@@ -38,5 +38,5 @@ d'authentification d'un utilisateur de GitHub.
 Un script permet d'exécuter `write_repo_info` sans l'importer de cette
 bibliothèque. Pour afficher ses paramètres, entrez la commande suivante.
 ```
-python write_repo.py -h
+python write_repository.py -h
 ```
