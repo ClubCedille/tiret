@@ -22,8 +22,8 @@ La classe `Repository` contient plusieurs données sur un dépôt:
 
 La fonction `fetch_repo_info` se connecte à l'API de GitHub pour obtenir des
 informations sur le dépôt spécifié. L'appelant doit s'authentifier en donnant
-son nom d'utilisateur et un jeton d'authentification (PAT). `fetch_repo_info`
-renvoie un objet `Repository`.
+son nom d'utilisateur et un jeton d'authentification. `fetch_repo_info` renvoie
+un objet `Repository`.
 
 Une démo montre comment utiliser `fetch_repo_info`. Pour afficher ses
 paramètres, entrez la commande suivante.
