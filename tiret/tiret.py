@@ -114,4 +114,4 @@ def write_repo_info(owner, repo, username, token, o_file):
 	repo_dict = repository.as_dict()
 
 	with o_file.open(encoding=_ENCODING_UTF8, mode=_MODE_W) as o_stream:
-		dump(repo_dict, o_stream)
+		dump(repo_dict, o_stream, allow_unicode=True)
