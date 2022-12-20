@@ -130,8 +130,10 @@ def write_repo_info(owner, repo, username, token, o_file):
 	o_file = _ensure_is_path(o_file)
 	repository = fetch_repo_info(owner, repo, username, token)
 	repo_dict = repository.as_dict()
-	repo_dict[KEY_CONTRIBUTORS] = list(repo_dict[KEY_CONTRIBUTORS])
-	repo_dict[KEY_LANG] = list(repo_dict[KEY_LANG])
+
+	for key, value in repo_dict.items():
+		if isinstance(value, tuple):
+			repo_dict[key] = list(value)
 
 	with o_file.open(encoding=_ENCODING_UTF8, mode=_MODE_W) as o_stream:
 		dump(repo_dict, o_stream, allow_unicode=True)
