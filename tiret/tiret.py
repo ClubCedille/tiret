@@ -109,6 +109,24 @@ def _raise_request_exception(status_code):
 
 
 def write_repo_info(owner, repo, username, token, o_file):
+	"""
+	This function obtains information about a GitHub repository from the GitHub
+	API and it writes the information in YAML format. The function requires a
+	GitHub username and a personal access token (PAT) to authenticate the
+	requests.
+
+	Args:
+		owner (str): the name of the repository's owner
+		repo (str): the repository's name
+		username (str): the name of a GitHub user
+		token (str): the user's PAT
+		o_file (str or pathlib.Path): the path to the YAML file where the
+			repository's information will be written
+
+	Raises:
+		RuntimeError: if a request to the GitHub API fails. Status code 401
+			can be due to an incorrect username or PAT.
+	"""
 	o_file = _ensure_is_path(o_file)
 	repository = fetch_repo_info(owner, repo, username, token)
 	repo_dict = repository.as_dict()
