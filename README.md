@@ -22,13 +22,13 @@ La classe `Repository` contient plusieurs données sur un dépôt:
 
 La méthode `as_dict` de `Repository` crée un dictionnaire associant un nom aux
 attributs d'un dépôt. Le module `repo_keys` de cette bibliothèque contient les
-clés (noms d'attribut) de ce dictionnaire dans les constantes suivantes.
-* KEY_COMMITS
-* KEY_CONTRIBUTORS
-* KEY_DESC
-* KEY_LANG
-* KEY_NAME
-* KEY_STARS
+clés de ce dictionnaire (noms d'attribut) dans les constantes suivantes.
+* `KEY_COMMITS`
+* `KEY_CONTRIBUTORS`
+* `KEY_DESC`
+* `KEY_LANG`
+* `KEY_NAME`
+* `KEY_STARS`
 
 La fonction `fetch_repo_info` se connecte à l'API de GitHub pour obtenir des
 informations sur le dépôt spécifié. L'appelant doit s'authentifier en donnant
@@ -49,4 +49,25 @@ Un script permet d'exécuter `write_repo_info` sans l'importer de cette
 bibliothèque. Pour afficher ses paramètres, entrez la commande suivante.
 ```
 python write_repository.py -h
+```
+
+### Importation
+Pour utiliser cette bibliothèque, téléchargez ce dépôt dans le dossier du code
+appelant. Vous pourrez importer les éléments suivants.
+* `fetch_repo_info`
+* `Repository`
+* `repo_keys`
+* `write_repo_info`
+
+Exemple:
+```
+from tiret import\
+	fetch_repo_info,\
+	repo_keys as rk
+
+
+repository = fetch_repo_info(...)
+repo_dict = repository.as_dict()
+repo_name = repo_dict[rk.KEY_NAME]
+print(repo_name)
 ```
