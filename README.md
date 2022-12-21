@@ -20,6 +20,16 @@ La classe `Repository` contient plusieurs données sur un dépôt:
 * son nombre de commits
 * les langages informatiques utilisés
 
+La méthode `as_dict` de `Repository` crée un dictionnaire associant un nom aux
+attributs d'un dépôt. Le module `repo_keys` de cette bibliothèque contient les
+clés (noms d'attribut) de ce dictionnaire dans les constantes suivantes.
+* KEY_COMMITS
+* KEY_CONTRIBUTORS
+* KEY_DESC
+* KEY_LANG
+* KEY_NAME
+* KEY_STARS
+
 La fonction `fetch_repo_info` se connecte à l'API de GitHub pour obtenir des
 informations sur le dépôt spécifié. L'appelant doit s'authentifier en donnant
 son nom d'utilisateur et un jeton d'authentification. `fetch_repo_info` renvoie
