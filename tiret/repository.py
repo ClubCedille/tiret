@@ -80,7 +80,7 @@ class Repository:
 
 	def as_dict(self):
 		"""
-		Creates a dictionary that maps attribute names (strings) to the
+		Creates a dictionary that maps attribute names (str) to the
 		repository's attributes.
 
 		Returns:

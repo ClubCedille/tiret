@@ -1,9 +1,14 @@
 import json
+from pathlib import Path
 import requests
+from yaml import dump
 
 from .repo_keys import *
 from .repository import Repository
 
+
+_ENCODING_UTF8 = "utf-8"
+_MODE_W = "w"
 
 _KEY_LOGIN = "login"
 _KEY_STARGAZERS = "stargazers_count"
@@ -11,6 +16,14 @@ _KEY_STARGAZERS = "stargazers_count"
 _PARAM_PAGE = "?page="
 _PATH_REPOS = "https://api.github.com/repos/"
 _SLASH = "/"
+
+
+def _ensure_is_path(obj):
+	if isinstance(obj, Path):
+		return obj
+
+	else:
+		return Path(obj)
 
 
 def fetch_repo_info(owner, repo, username, token):
@@ -93,3 +106,35 @@ def _raise_request_exception(status_code):
 	if status_code != 200:
 		raise RuntimeError(
 			f"Request to the GitHub API fialed. Status: {status_code}.")
+
+
+def write_repo_info(owner, repo, username, token, o_file):
+	"""
+	This function obtains information about a GitHub repository from the GitHub
+	API and writes the information in YAML in a file. The function requires a
+	GitHub username and a personal access token (PAT) to authenticate the
+	requests.
+
+	Args:
+		owner (str): the name of the repository's owner
+		repo (str): the repository's name
+		username (str): the name of a GitHub user
+		token (str): the user's PAT
+		o_file (str or pathlib.Path): the path to the YAML file where the
+			repository's information will be written
+
+	Raises:
+		RuntimeError: if a request to the GitHub API fails. Status code 401
+			can be due to an incorrect username or PAT.
+	"""
+	o_file = _ensure_is_path(o_file)
+	repository = fetch_repo_info(owner, repo, username, token)
+	repo_dict = repository.as_dict()
+
+	# Unwanted text added if tuples are recorded
+	for key, value in repo_dict.items():
+		if isinstance(value, tuple):
+			repo_dict[key] = list(value)
+
+	with o_file.open(encoding=_ENCODING_UTF8, mode=_MODE_W) as o_stream:
+		dump(repo_dict, o_stream, allow_unicode=True)
