@@ -1,4 +1,4 @@
-# tiret
+# Tiret
 
 Cette bibliothèque aide à obtenir les données d'un dépôt GitHub au moyen de
 l'API de GitHub.
