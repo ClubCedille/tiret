@@ -22,7 +22,7 @@ parser.add_argument("-u", "--username", required=True,
 parser.add_argument("-t", "--token", required=True,
 	help="A PAT owned by user -u")
 parser.add_argument("-y", "--yaml-output", required=True,
-	help="The path to the YAML file where to write the information from -r")
+	help="The path to the file where to write the information from -r in YAML")
 args = parser.parse_args()
 
 try:
