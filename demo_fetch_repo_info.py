@@ -24,7 +24,11 @@ args = parser.parse_args()
 
 try:
 	repo = fetch_repo_info(
-		args.owner, args.repository, args.username, args.token)
+		args.owner,
+		args.repository,
+		args.username,
+		args.token)
+
 except RuntimeError as rte:
 	print(rte)
 	exit()
