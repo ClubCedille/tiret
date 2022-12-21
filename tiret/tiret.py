@@ -111,7 +111,7 @@ def _raise_request_exception(status_code):
 def write_repo_info(owner, repo, username, token, o_file):
 	"""
 	This function obtains information about a GitHub repository from the GitHub
-	API and writes the information in the YAML format. The function requires a
+	API and writes the information in YAML in a file. The function requires a
 	GitHub username and a personal access token (PAT) to authenticate the
 	requests.
 
