@@ -27,9 +27,9 @@ class Repository:
 		self._name = name
 		self._description = description
 		self._stars = stars
-		self._contributors = _ensure_is_tuple("contributors", contributors)
+		self._contributors = _ensure_is_tuple(KEY_CONTRIBUTORS, contributors)
 		self._commits = commits
-		self._languages = _ensure_is_tuple("languages", languages)
+		self._languages = _ensure_is_tuple(KEY_LANG, languages)
 
 	def __repr__(self):
 		return self.__class__.__name__\
