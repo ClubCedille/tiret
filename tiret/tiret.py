@@ -11,7 +11,6 @@ _ENCODING_UTF8 = "utf-8"
 _MODE_W = "w"
 
 _KEY_LOGIN = "login"
-_KEY_STARGAZERS = "stargazers_count"
 
 _PARAM_PAGE = "?page="
 _PATH_REPOS = "https://api.github.com/repos/"
@@ -76,7 +75,7 @@ def fetch_repo_info(owner, repo, username, token):
 	description = repo_data.get(KEY_DESC)
 	open_issues = repo_data.get(KEY_OPEN_ISSUES)
 	forks = repo_data.get(KEY_FORKS)
-	stars = repo_data.get(_KEY_STARGAZERS)
+	stargazers = repo_data.get(KEY_STARGAZERS)
 	contributors = _fetch_repo_contributors(repo_url, authentication)
 	commits_url = repo_url + _SLASH + KEY_COMMITS
 	commits = _count_items_in_pages(commits_url, authentication)
@@ -86,7 +85,7 @@ def fetch_repo_info(owner, repo, username, token):
 		description,
 		open_issues,
 		forks,
-		stars,
+		stargazers,
 		contributors,
 		commits,
 		languages)
