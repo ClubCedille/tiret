@@ -18,6 +18,26 @@ _PATH_REPOS = "https://api.github.com/repos/"
 _SLASH = "/"
 
 
+def _count_items_in_pages(url, authentication):
+	url += _PARAM_PAGE
+	page_num = 1
+	num_items = 0
+
+	while True:
+		url_to_page = url+str(page_num)
+		response = requests.get(url_to_page, auth=authentication)
+		_raise_request_exception(url_to_page, response.status_code)
+		item_data = json.loads(response.content)
+
+		num_items_on_page = len(item_data)
+		if num_items_on_page < 1:
+			break
+		num_items += num_items_on_page
+		page_num += 1
+
+	return num_items
+
+
 def _ensure_is_path(obj):
 	if isinstance(obj, Path):
 		return obj
@@ -49,17 +69,27 @@ def fetch_repo_info(owner, repo, username, token):
 	authentication = (username, token)
 	repo_url = _PATH_REPOS + owner + _SLASH + repo
 	repo_response = requests.get(repo_url, auth=authentication)
-	_raise_request_exception(repo_response.status_code)
+	_raise_request_exception(repo_url, repo_response.status_code)
 
 	repo_data = json.loads(repo_response.content)
 	name = repo_data.get(KEY_NAME)
 	description = repo_data.get(KEY_DESC)
+	open_issues = repo_data.get(KEY_OPEN_ISSUES)
+	forks = repo_data.get(KEY_FORKS)
 	stars = repo_data.get(_KEY_STARGAZERS)
 	contributors = _fetch_repo_contributors(repo_url, authentication)
-	commits = _fetch_repo_num_commits(repo_url, authentication)
+	commits_url = repo_url + _SLASH + KEY_COMMITS
+	commits = _count_items_in_pages(commits_url, authentication)
 	languages = _fetch_repo_languages(repo_url, authentication)
 	repo = Repository(
-		name, description, stars, contributors, commits, languages)
+		name,
+		description,
+		open_issues,
+		forks,
+		stars,
+		contributors,
+		commits,
+		languages)
 
 	return repo
 
@@ -67,7 +97,7 @@ def fetch_repo_info(owner, repo, username, token):
 def _fetch_repo_contributors(repo_url, authentication):
 	contributor_url = repo_url + _SLASH + KEY_CONTRIBUTORS
 	contributor_response = requests.get(contributor_url, auth=authentication)
-	_raise_request_exception(contributor_response.status_code)
+	_raise_request_exception(contributor_url, contributor_response.status_code)
 	contributor_data = json.loads(contributor_response.content)
 	contributors = *(c[_KEY_LOGIN] for c in contributor_data),
 	return contributors
@@ -76,36 +106,16 @@ def _fetch_repo_contributors(repo_url, authentication):
 def _fetch_repo_languages(repo_url, authentication):
 	repo_lang_url = repo_url + _SLASH + KEY_LANG
 	lang_response = requests.get(repo_lang_url, auth=authentication)
-	_raise_request_exception(lang_response.status_code)
+	_raise_request_exception(repo_lang_url, lang_response.status_code)
 	lang_data = json.loads(lang_response.content)
 	languages = tuple(lang_data.keys())
 	return languages
 
 
-def _fetch_repo_num_commits(repo_url, authentication):
-	repo_commit_url = repo_url + _SLASH + KEY_COMMITS + _PARAM_PAGE
-	page_num = 1
-	num_commits = 0
-
-	while True:
-		commit_response = requests.get(
-			repo_commit_url+str(page_num), auth=authentication)
-		_raise_request_exception(commit_response.status_code)
-		commit_data = json.loads(commit_response.content)
-
-		num_commits_page = len(commit_data)
-		if num_commits_page < 1:
-			break
-		num_commits += num_commits_page
-		page_num += 1
-
-	return num_commits
-
-
-def _raise_request_exception(status_code):
+def _raise_request_exception(url, status_code):
 	if status_code != 200:
 		raise RuntimeError(
-			f"Request to the GitHub API fialed. Status: {status_code}.")
+			f"Request {url} failed with status code {status_code}.")
 
 
 def write_repo_info(owner, repo, username, token, o_file):

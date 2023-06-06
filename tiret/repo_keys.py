@@ -1,6 +1,8 @@
 KEY_COMMITS = "commits"
 KEY_CONTRIBUTORS = "contributors"
 KEY_DESC = "description"
+KEY_FORKS = "forks"
+KEY_OPEN_ISSUES = "open_issues"
 KEY_LANG = "languages"
 KEY_NAME = "name"
 KEY_STARS = "stars"

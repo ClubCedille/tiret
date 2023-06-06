@@ -6,7 +6,7 @@ class Repository:
 	This class contains data about a GitHub repository.
 	"""
 
-	def __init__(self, name, description, stars, contributors, commits, languages):
+	def __init__(self, name, description, open_issues, forks, stars, contributors, commits, languages):
 		"""
 		The constructor requires all the data that the class is meant to
 		contain.
@@ -14,6 +14,8 @@ class Repository:
 		Args:
 			name (str): the repository's name
 			description (str): the repository's description
+			open_issues (int): the repository's number of open issues
+			forks (int): the repository's number of forks
 			stars (int): the repository's number of stars
 			contributors: a list, set or tuple containing the username (str) of
 				the repository's contributors
@@ -26,6 +28,8 @@ class Repository:
 		"""
 		self._name = name
 		self._description = description
+		self._open_issues = open_issues
+		self._forks = forks
 		self._stars = stars
 		self._contributors = _ensure_is_tuple(KEY_CONTRIBUTORS, contributors)
 		self._commits = commits
@@ -33,8 +37,14 @@ class Repository:
 
 	def __repr__(self):
 		return self.__class__.__name__\
-			+ f"(\"{self._name}\", \"{self._description}\", {self._stars}, "\
-			+ f"{self._contributors}, {self._commits}, {self._languages})"
+			+ f"('{self._name}', "\
+			+ f"'{self._description}', "\
+			+ f"{self._open_issues}, "\
+			+ f"{self._forks}, "\
+			+ f"{self._stars}, "\
+			+ f"{self._contributors}, "\
+			+ f"{self._commits}, "\
+			+ f"{self._languages})"
 
 	@property
 	def commits(self):
@@ -58,6 +68,13 @@ class Repository:
 		return self._description
 
 	@property
+	def forks(self):
+		"""
+		int: the repository's number of forks
+		"""
+		return self._forks
+
+	@property
 	def languages(self):
 		"""
 		tuple: the name (str) of the computer languages used in the repository
@@ -70,6 +87,13 @@ class Repository:
 		str: the repository's name
 		"""
 		return self._name
+
+	@property
+	def open_issues(self):
+		"""
+		int: the repository's number of open issues
+		"""
+		return self._open_issues
 
 	@property
 	def stars(self):
@@ -89,6 +113,8 @@ class Repository:
 		return {
 			KEY_NAME: self._name,
 			KEY_DESC: self._description,
+			KEY_OPEN_ISSUES: self._open_issues,
+			KEY_FORKS: self._forks,
 			KEY_STARS: self._stars,
 			KEY_CONTRIBUTORS: self._contributors,
 			KEY_COMMITS: self._commits,
