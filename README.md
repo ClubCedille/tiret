@@ -46,8 +46,8 @@ python demo_fetch_repo_info.py -h
 ```
 
 La fonction `write_repo_info` appelle `fetch_repo_info` puis enregistre les
-données du dépôt en YAML dans un fichier. Elle aussi requiert les informations
-d'authentification d'un utilisateur de GitHub.
+données du dépôt en YAML dans un fichier texte. Elle aussi requiert les
+informations d'authentification d'un utilisateur de GitHub.
 
 Le script `write_repository.py` permet d'exécuter `write_repo_info` sans
 l'importer de cette bibliothèque. Pour afficher ses paramètres, entrez la
