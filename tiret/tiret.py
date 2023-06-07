@@ -106,6 +106,7 @@ def _fetch_repo_contributors(repo_url, authentication):
 	contributor_url = repo_url + _SLASH + KEY_CONTRIBUTORS
 	contributor_response = requests.get(contributor_url, auth=authentication)
 	_raise_request_exception(contributor_url, contributor_response.status_code)
+
 	contributor_data = json.loads(contributor_response.content)
 	contributors = *(c[_KEY_LOGIN] for c in contributor_data),
 	return contributors
@@ -115,8 +116,14 @@ def _fetch_repo_languages(repo_url, authentication):
 	repo_lang_url = repo_url + _SLASH + KEY_LANG
 	lang_response = requests.get(repo_lang_url, auth=authentication)
 	_raise_request_exception(repo_lang_url, lang_response.status_code)
+
+	# Maps the languages' name to their number of characters in the repository.
 	lang_data = json.loads(lang_response.content)
-	languages = tuple(lang_data.keys())
+	sum_chars = sum(lang_data.values())
+	languages = dict()
+	for lang, chars in lang_data.items():
+		languages[lang] = chars / sum_chars
+
 	return languages
 
 

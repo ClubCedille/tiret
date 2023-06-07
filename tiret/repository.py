@@ -32,11 +32,11 @@ class Repository:
 			contributors: a list, set or tuple containing the username (str) of
 				the repository's contributors
 			commits (int): the repository's number of commits
-			languages: a list, set or tuple containing the name (str) of the
-				computer languages used in the repository
+			languages (dict): a mapping of the languages' name (str) to their
+				proportion (float) in the repository
 
 		Raises:
-			TypeError: if argument contributors or languages is of a wrong type
+			TypeError: if argument contributors is of a wrong type
 		"""
 		self._owner = owner
 		self._name = name
@@ -47,7 +47,8 @@ class Repository:
 		self._stargazers = stargazers
 		self._contributors = _ensure_is_tuple(KEY_CONTRIBUTORS, contributors)
 		self._commits = commits
-		self._languages = _ensure_is_tuple(KEY_LANG, languages)
+		# As a mutable object, attribute _languages must be copied.
+		self._languages = dict(languages)
 
 	def __repr__(self):
 		# Double quotes are necessary around string
@@ -95,9 +96,12 @@ class Repository:
 	@property
 	def languages(self):
 		"""
-		tuple: the name (str) of the computer languages used in the repository
+		dict: a mapping of the languages' name (str) to their
+				proportion (float) in the repository
 		"""
-		return self._languages
+		# The property copies the attribute because
+		# dictionaries are mutable objects.
+		return dict(self._languages)
 
 	@property
 	def name(self):
@@ -137,7 +141,8 @@ class Repository:
 	def as_dict(self):
 		"""
 		Creates a dictionary that maps attribute names (str) to the
-		repository's attributes.
+		repository's attributes. The dictionary's keys are stored as constants
+		in module repo_keys.
 
 		Returns:
 			dict: It maps the attributes' name to their value.
@@ -152,7 +157,9 @@ class Repository:
 			KEY_STARGAZERS: self._stargazers,
 			KEY_CONTRIBUTORS: self._contributors,
 			KEY_COMMITS: self._commits,
-			KEY_LANG: self._languages}
+			# As a mutable object, attribute _languages
+			# must be copied by the property.
+			KEY_LANG: self.languages}
 
 
 def _ensure_is_tuple(arg_name, obj):
@@ -163,5 +170,5 @@ def _ensure_is_tuple(arg_name, obj):
 		return tuple(obj)
 
 	else:
-		raise TypeError(f"Repository: argument {arg_name} "\
+		raise TypeError(f"Repository constructor: argument {arg_name} "\
 			+ "must be a list, a set or a tuple.")
