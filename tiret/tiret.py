@@ -73,17 +73,22 @@ def fetch_repo_info(owner, repo, username, token):
 	repo_data = json.loads(repo_response.content)
 	name = repo_data.get(KEY_NAME)
 	description = repo_data.get(KEY_DESC)
-	open_issues = repo_data.get(KEY_OPEN_ISSUES)
 	forks = repo_data.get(KEY_FORKS)
 	stargazers = repo_data.get(KEY_STARGAZERS)
+
 	contributors = _fetch_repo_contributors(repo_url, authentication)
+	pulls_url = repo_url + _SLASH + KEY_PULLS
+	open_prs = _count_items_in_pages(pulls_url, authentication)
+	open_issues = repo_data.get(KEY_OPEN_ISSUES) - open_prs
 	commits_url = repo_url + _SLASH + KEY_COMMITS
 	commits = _count_items_in_pages(commits_url, authentication)
 	languages = _fetch_repo_languages(repo_url, authentication)
+
 	repo = Repository(
 		name,
 		description,
 		open_issues,
+		open_prs,
 		forks,
 		stargazers,
 		contributors,

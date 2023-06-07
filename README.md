@@ -17,6 +17,7 @@ La classe `Repository` contient plusieurs données sur un dépôt:
 * sa description
 * son nombre de problèmes (*issues*) ouverts
 * son nombre de duplications (*forks*)
+* son nombre de demandes de tirage (*pull requests*) ouvertes
 * son nombre d'étoiles
 * le nom de ses contributeurs
 * son nombre de commits
@@ -32,6 +33,7 @@ clés de ce dictionnaire (noms d'attribut) dans les constantes suivantes.
 * `KEY_LANG`
 * `KEY_NAME`
 * `KEY_OPEN_ISSUES`
+* `KEY_PULLS`
 * `KEY_STARGAZERS`
 
 La fonction `fetch_repo_info` se connecte à l'API de GitHub pour obtenir des
