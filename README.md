@@ -22,7 +22,7 @@ La classe `Repository` contient plusieurs données sur un dépôt:
 * son nombre d'étoiles
 * le nom de ses contributeurs
 * son nombre de commits
-* les langages informatiques utilisés
+* la proportion des langages informatiques utilisés
 
 La méthode `as_dict` de `Repository` crée un dictionnaire associant un nom aux
 attributs d'un dépôt. Le module `repo_keys` de cette bibliothèque contient les
