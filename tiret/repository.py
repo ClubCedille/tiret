@@ -50,10 +50,12 @@ class Repository:
 		self._languages = _ensure_is_tuple(KEY_LANG, languages)
 
 	def __repr__(self):
+		# Double quotes are necessary around string
+		# arguments because they may contain apostrophes.
 		return self.__class__.__name__\
-			+ f"('{self._owner}', "\
-			+ f"'{self._name}', "\
-			+ f"'{self._description}', "\
+			+ f"(\"{self._owner}\", "\
+			+ f"\"{self._name}\", "\
+			+ f"\"{self._description}\", "\
 			+ f"{self._open_issues}, "\
 			+ f"{self._open_prs}, "\
 			+ f"{self._forks}, "\
