@@ -169,5 +169,5 @@ def _ensure_is_tuple(arg_name, obj):
 		return tuple(obj)
 
 	else:
-		raise TypeError(f"Repository: argument {arg_name} "\
+		raise TypeError(f"Repository constructor: argument {arg_name} "\
 			+ "must be a list, a set or a tuple.")
