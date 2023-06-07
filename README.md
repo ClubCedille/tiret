@@ -13,8 +13,12 @@ pip install -r requirements.txt
 ### Contenu
 
 La classe `Repository` contient plusieurs données sur un dépôt:
+* son propriétaire
 * son nom
 * sa description
+* son nombre de problèmes (*issues*) ouverts
+* son nombre de duplications (*forks*)
+* son nombre de demandes de tirage (*pull requests*) ouvertes
 * son nombre d'étoiles
 * le nom de ses contributeurs
 * son nombre de commits
@@ -26,9 +30,13 @@ clés de ce dictionnaire (noms d'attribut) dans les constantes suivantes.
 * `KEY_COMMITS`
 * `KEY_CONTRIBUTORS`
 * `KEY_DESC`
+* `KEY_FORKS`
 * `KEY_LANG`
 * `KEY_NAME`
-* `KEY_STARS`
+* `KEY_OPEN_ISSUES`
+* `KEY_OWNER`
+* `KEY_PULLS`
+* `KEY_STARGAZERS`
 
 La fonction `fetch_repo_info` se connecte à l'API de GitHub pour obtenir des
 informations sur le dépôt spécifié. L'appelant doit s'authentifier en donnant
@@ -42,8 +50,8 @@ python demo_fetch_repo_info.py -h
 ```
 
 La fonction `write_repo_info` appelle `fetch_repo_info` puis enregistre les
-données du dépôt en YAML dans un fichier. Elle aussi requiert les informations
-d'authentification d'un utilisateur de GitHub.
+données du dépôt en YAML dans un fichier texte. Elle aussi requiert les
+informations d'authentification d'un utilisateur de GitHub.
 
 Le script `write_repository.py` permet d'exécuter `write_repo_info` sans
 l'importer de cette bibliothèque. Pour afficher ses paramètres, entrez la
