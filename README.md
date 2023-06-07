@@ -13,6 +13,7 @@ pip install -r requirements.txt
 ### Contenu
 
 La classe `Repository` contient plusieurs données sur un dépôt:
+* son propriétaire
 * son nom
 * sa description
 * son nombre de problèmes (*issues*) ouverts
@@ -33,6 +34,7 @@ clés de ce dictionnaire (noms d'attribut) dans les constantes suivantes.
 * `KEY_LANG`
 * `KEY_NAME`
 * `KEY_OPEN_ISSUES`
+* `KEY_OWNER`
 * `KEY_PULLS`
 * `KEY_STARGAZERS`
 

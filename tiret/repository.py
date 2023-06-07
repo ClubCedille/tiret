@@ -7,6 +7,7 @@ class Repository:
 	"""
 
 	def __init__(self,
+	    owner,
 	    name,
 		description,
 		open_issues,
@@ -21,6 +22,7 @@ class Repository:
 		contain.
 
 		Args:
+			owner (str): the repository's owner
 			name (str): the repository's name
 			description (str): the repository's description
 			open_issues (int): the repository's number of open issues
@@ -36,6 +38,7 @@ class Repository:
 		Raises:
 			TypeError: if argument contributors or languages is of a wrong type
 		"""
+		self._owner = owner
 		self._name = name
 		self._description = description
 		self._open_issues = open_issues
@@ -48,7 +51,8 @@ class Repository:
 
 	def __repr__(self):
 		return self.__class__.__name__\
-			+ f"('{self._name}', "\
+			+ f"('{self._owner}', "\
+			+ f"'{self._name}', "\
 			+ f"'{self._description}', "\
 			+ f"{self._open_issues}, "\
 			+ f"{self._open_prs}, "\
@@ -115,6 +119,13 @@ class Repository:
 		return self._open_prs
 
 	@property
+	def owner(self):
+		"""
+		str: the repository's owner
+		"""
+		return self._owner
+
+	@property
 	def stargazers(self):
 		"""
 		int: the repository's number of stargazers
@@ -133,6 +144,7 @@ class Repository:
 			KEY_NAME: self._name,
 			KEY_DESC: self._description,
 			KEY_OPEN_ISSUES: self._open_issues,
+			KEY_OWNER: self._owner,
 			KEY_PULLS: self._open_prs,
 			KEY_FORKS: self._forks,
 			KEY_STARGAZERS: self._stargazers,

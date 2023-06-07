@@ -69,22 +69,26 @@ def fetch_repo_info(owner, repo, username, token):
 	repo_url = _PATH_REPOS + owner + _SLASH + repo
 	repo_response = requests.get(repo_url, auth=authentication)
 	_raise_request_exception(repo_url, repo_response.status_code)
-
 	repo_data = json.loads(repo_response.content)
+
+	owner = repo_data.get(KEY_OWNER).get(_KEY_LOGIN)
 	name = repo_data.get(KEY_NAME)
 	description = repo_data.get(KEY_DESC)
 	forks = repo_data.get(KEY_FORKS)
 	stargazers = repo_data.get(KEY_STARGAZERS)
 
-	contributors = _fetch_repo_contributors(repo_url, authentication)
 	pulls_url = repo_url + _SLASH + KEY_PULLS
 	open_prs = _count_items_in_pages(pulls_url, authentication)
 	open_issues = repo_data.get(KEY_OPEN_ISSUES) - open_prs
+
 	commits_url = repo_url + _SLASH + KEY_COMMITS
 	commits = _count_items_in_pages(commits_url, authentication)
+
+	contributors = _fetch_repo_contributors(repo_url, authentication)
 	languages = _fetch_repo_languages(repo_url, authentication)
 
 	repo = Repository(
+		owner,
 		name,
 		description,
 		open_issues,
