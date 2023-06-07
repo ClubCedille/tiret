@@ -47,7 +47,8 @@ class Repository:
 		self._stargazers = stargazers
 		self._contributors = _ensure_is_tuple(KEY_CONTRIBUTORS, contributors)
 		self._commits = commits
-		self._languages = languages
+		# As a mutable object, attribute _languages must be copied.
+		self._languages = dict(languages)
 
 	def __repr__(self):
 		# Double quotes are necessary around string
