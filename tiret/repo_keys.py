@@ -1,3 +1,9 @@
+"""
+The constants in this module are the keys of the dictionary returned by
+Repository.as_dict.
+"""
+
+
 KEY_COMMITS = "commits"
 KEY_CONTRIBUTORS = "contributors"
 KEY_DESC = "description"

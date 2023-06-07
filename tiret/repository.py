@@ -140,7 +140,8 @@ class Repository:
 	def as_dict(self):
 		"""
 		Creates a dictionary that maps attribute names (str) to the
-		repository's attributes.
+		repository's attributes. The dictionary's keys are stored as constants
+		in module repo_keys.
 
 		Returns:
 			dict: It maps the attributes' name to their value.
