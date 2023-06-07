@@ -1,6 +1,6 @@
 """
 This script obtains information about a GitHub repository from the GitHub API
-and writes the information in YAML in a file. The user must provide their
+and writes the information in YAML in a text file. The user must provide their
 username and one of their personal access tokens (PATs) to authenticate the
 requests.
 """

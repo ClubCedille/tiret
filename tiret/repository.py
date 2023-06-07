@@ -7,8 +7,8 @@ class Repository:
 	"""
 
 	def __init__(self,
-	    owner,
-	    name,
+		owner,
+		name,
 		description,
 		open_issues,
 		open_prs,
